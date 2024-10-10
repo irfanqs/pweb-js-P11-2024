@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum Modul 2-JS-P11</title>
+    <link rel="icon" href="assets/purelife-logo.png" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Welcome The PureLife Online Shop</h1>
+    <div>
+        <select id="categoryFilter">
+            <option value="all">All</option>
+            <option value="beauty">Beauty</option>
+            <option value="womens-watches">Women's Watches</option>
+            <option value="mens-watches">Men's Watches</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="itemsPerPage">Show Items: </label>
+        <select id="itemsPerPage">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+    </div>
+
+    <div id="products"></div>
+
+    <div id="cart">
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <p>Total items: <span id="total-items">0</span></p>
+        <p>Total price: $<span id="total-price">0.00</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

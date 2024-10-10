@@ -1,0 +1,135 @@
+:root {
+    --primary-color: #212121; /*heading*/
+    --secondary-color: #ffffff; /*button text*/
+    --background-color: #ffffff;
+    --text-color: #828282;
+    --accent-color: #73ae37;
+    --accent-color-hover: #5c8a2c;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: var(--accent-color);
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Product Card Styles */
+.product {
+    background-color: var(--background-color);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    padding: 15px;
+    text-align: center;
+    width: 250px;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product h3 {
+    font-size: 18px;
+    color: var(--primary-color);
+    margin: 10px 0;
+}
+
+.product p {
+    font-size: 16px;
+    color: var(--text-color);
+    margin: 10px 0;
+}
+
+.product button {
+    padding: 10px 15px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product button:hover {
+    background-color: var(--accent-color-hover);
+}
+
+/* Cart Styles */
+#cart {
+    position: static;
+    top: 20px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: var(--background-color);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#cart h2 {
+    font-size: 20px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+#cart-items .cart-item {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+#cart-items .cart-item h4 {
+    font-size: 16px;
+    color: var(--primary-color);
+    margin: 0 0 5px;
+}
+
+#cart-items .cart-item p {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+#cart button {
+    width: 10%;
+    padding: 10px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#cart button:hover {
+    background-color: var(--accent-color-hover);
+}
