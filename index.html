@@ -8,13 +8,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome The PureLife Online Shop</h1>
+    <h1>The PureLife Online Shop</h1>
+    <div class="header-section">
+        <h2>Our Product</h2>
+        <p>Segera checkout keranjangmu!</p>
+    </div>
+    
     <div>
+        <label for="categoryFilter">Category: </label>
         <select id="categoryFilter">
             <option value="all">All</option>
-            <option value="beauty">Beauty</option>
-            <option value="womens-watches">Women's Watches</option>
             <option value="mens-watches">Men's Watches</option>
+            <option value="womens-watches">Women's Watches</option>
+            <option value="beauty">Beauty</option>
+            <!-- Kategori tambahan akan diisi secara dinamis melalui JavaScript -->
         </select>
     </div>
 
@@ -28,6 +35,12 @@
     </div>
 
     <div id="products"></div>
+
+    <div id="pagination" class="pagination">
+        <button id="prevBtn" onclick="prevPage()" disabled>Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextBtn" onclick="nextPage()">Next</button>
+    </div>
 
     <div id="cart">
         <h2>Your Cart</h2>
