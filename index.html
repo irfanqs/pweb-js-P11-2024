@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Praktikum Modul 2-JS-P11</title>
-    <link rel="icon" href="assets/purelife-logo.png" type="image/icon type">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>The PureLife Online Shop</h1>
-    <div class="header-section">
-        <h2>Our Product</h2>
-        <p>Segera checkout keranjangmu!</p>
-    </div>
-    
-    <div>
-        <label for="categoryFilter">Category: </label>
-        <select id="categoryFilter">
-            <option value="all">All</option>
-            <option value="mens-watches">Men's Watches</option>
-            <option value="womens-watches">Women's Watches</option>
-            <option value="beauty">Beauty</option>
-            <!-- Kategori tambahan akan diisi secara dinamis melalui JavaScript -->
-        </select>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Praktikum Modul 2-JS-P11</title>
+		<link rel="icon" href="assets/purelife-logo.png" type="image/icon type" />
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<h1>The PureLife Online Shop</h1>
+		<div class="header-section">
+			<h2>Our Product</h2>
+			<p>Segera checkout keranjangmu!</p>
+		</div>
 
-    <div>
-        <label for="itemsPerPage">Show Items: </label>
-        <select id="itemsPerPage">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-        </select>
-    </div>
+		<div class="category-show-items">
+			<div class="category">
+				<label for="categoryFilter">Category: </label>
+				<select id="categoryFilter">
+					<option value="all">All</option>
+					<option value="mens-watches">Men's Watches</option>
+					<option value="womens-watches">Women's Watches</option>
+					<option value="beauty">Beauty</option>
+					<!-- Kategori tambahan akan diisi secara dinamis melalui JavaScript -->
+				</select>
+			</div>
 
-    <div id="products"></div>
+			<div class="category">
+				<label for="itemsPerPage">Show Items: </label>
+				<select id="itemsPerPage">
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+				</select>
+			</div>
+		</div>
 
-    <div id="pagination" class="pagination">
-        <button id="prevBtn" onclick="prevPage()" disabled>Previous</button>
-        <span id="pageInfo">Page 1</span>
-        <button id="nextBtn" onclick="nextPage()">Next</button>
-    </div>
+		<div id="products"></div>
 
-    <div id="cart">
-        <h2>Your Cart</h2>
-        <div id="cart-items"></div>
-        <p>Total items: <span id="total-items">0</span></p>
-        <p>Total price: $<span id="total-price">0.00</span></p>
-        <button onclick="checkout()">Checkout</button>
-    </div>
+		<div id="pagination" class="pagination">
+			<button id="prevBtn" onclick="prevPage()" disabled>Previous</button>
+			<span id="pageInfo">Page 1</span>
+			<button id="nextBtn" onclick="nextPage()">Next</button>
+		</div>
 
-    <script src="script.js"></script>
-</body>
+		<div id="cart">
+			<h2>Your Cart</h2>
+			<div id="cart-items"></div>
+			<p>Total items: <span id="total-items">0</span></p>
+			<p class="total-price">
+				Total price: <strong>$<span id="total-price">0.00</span></strong>
+			</p>
+			<button onclick="checkout()">Checkout</button>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
 </html>
