@@ -1,33 +1,53 @@
 let products = [];
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let itemsPerPage = 5; // Default value for items per page
+let currentPage = 1;
+let totalPages = 1;
 
-// Mengambil data dari dummyjson.com dengan awal katagori semuanya 
-async function fetchProducts(category = "all") {
-    let url = 'https://dummyjson.com/products';
-    if (category !== "all") {
-        url += `/category/${category}`;
-    }
+// Kategori Tetap
+const fixedCategories = ["mens-watches", "womens-watches", "beauty"];
 
+// Kategori Mapping untuk "Beauty"
+const beautyCategories = ["skincare", "fragrances"];
+
+// Fungsi untuk mengambil kategori dari API
+async function fetchCategories() {
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-        products = data.products;
-        displayProducts(products);
+        const response = await fetch('https://dummyjson.com/products/categories');
+        const categories = await response.json();
+        populateCategoryFilter(categories);
     } catch (error) {
-        console.error("Error fetching products:", error);
-        document.getElementById('products').innerHTML = "<p>Failed to load products. Please try again later.</p>";
+        console.error("Error fetching categories:", error);
     }
 }
 
+// Fungsi untuk mengisi select box kategori
+function populateCategoryFilter(apiCategories) {
+    const categoryFilter = document.getElementById('categoryFilter');
+
+    // Menambahkan kategori dinamis, kecuali yang sudah ada di fixedCategories dan "beauty"
+    apiCategories.forEach(category => {
+        if (!fixedCategories.includes(category) && category !== "beauty") {
+            const option = document.createElement('option');
+            option.value = category;
+            // Mengubah format kategori menjadi Title Case (opsional)
+            option.textContent = category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            categoryFilter.appendChild(option);
+        }
+    });
+}
+
 // Fungsi yang akan menampilkan produknya 
-function displayProducts(products) {
+function displayProducts(productsToDisplay) {
     const productsContainer = document.getElementById('products');
     productsContainer.innerHTML = "";
 
-    const limitedProducts = products.slice(0, itemsPerPage);
+    // Hitung indeks mulai dan akhir
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedProducts = productsToDisplay.slice(startIndex, endIndex);
 
-    limitedProducts.forEach(product => {
+    paginatedProducts.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.classList.add('product');
 
@@ -39,6 +59,14 @@ function displayProducts(products) {
         `;
         productsContainer.appendChild(productDiv);
     });
+
+    // Hitung total halaman
+    totalPages = Math.ceil(productsToDisplay.length / itemsPerPage);
+    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+
+    // Atur tombol Previous dan Next
+    document.getElementById('prevBtn').disabled = currentPage === 1;
+    document.getElementById('nextBtn').disabled = currentPage === totalPages || totalPages === 0;
 }
 
 function addToCart(id) {
@@ -110,15 +138,95 @@ function checkout() {
     }
 }
 
+// Fungsi untuk Next dan Previous
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayProducts(products);
+    }
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayProducts(products);
+    }
+}
+
+// Fungsi untuk mengambil produk berdasarkan kategori
+async function fetchProducts(category = "all") {
+    let url = 'https://dummyjson.com/products';
+    let fetchedProducts = [];
+
+    if (category === "all") {
+        // Fetch all products
+        try {
+            const response = await fetch(`${url}?limit=100`); // Adjust limit as needed
+            const data = await response.json();
+            fetchedProducts = data.products;
+        } catch (error) {
+            console.error("Error fetching products:", error);
+            document.getElementById('products').innerHTML = "<p>Failed to load products. Please try again later.</p>";
+            return;
+        }
+    } else if (fixedCategories.includes(category)) {
+        if (category === "beauty") {
+            // Fetch multiple categories for "Beauty"
+            try {
+                const fetchPromises = beautyCategories.map(cat => fetch(`${url}/category/${cat}`).then(res => res.json()));
+                const results = await Promise.all(fetchPromises);
+                results.forEach(result => {
+                    fetchedProducts = fetchedProducts.concat(result.products);
+                });
+            } catch (error) {
+                console.error("Error fetching beauty products:", error);
+                document.getElementById('products').innerHTML = "<p>Failed to load beauty products. Please try again later.</p>";
+                return;
+            }
+        } else {
+            // Fetch specific fixed category
+            try {
+                const response = await fetch(`${url}/category/${category}`);
+                const data = await response.json();
+                fetchedProducts = data.products;
+            } catch (error) {
+                console.error(`Error fetching category ${category}:`, error);
+                document.getElementById('products').innerHTML = `<p>Failed to load products for category ${category}. Please try again later.</p>`;
+                return;
+            }
+        }
+    } else {
+        // Fetch other dynamic categories
+        try {
+            const response = await fetch(`${url}/category/${category}`);
+            const data = await response.json();
+            fetchedProducts = data.products;
+        } catch (error) {
+            console.error(`Error fetching category ${category}:`, error);
+            document.getElementById('products').innerHTML = `<p>Failed to load products for category ${category}. Please try again later.</p>`;
+            return;
+        }
+    }
+
+    products = fetchedProducts;
+    currentPage = 1; // Reset halaman saat produk di-fetch ulang
+    displayProducts(products);
+}
+
+// Event listeners untuk filter kategori dan items per page
 document.getElementById('categoryFilter').addEventListener('change', (e) => {
     const category = e.target.value;
+    currentPage = 1; // Reset halaman saat kategori berubah
     fetchProducts(category);
 });
 
 document.getElementById('itemsPerPage').addEventListener('change', (e) => {
     itemsPerPage = parseInt(e.target.value);
+    currentPage = 1; // Reset halaman saat itemsPerPage berubah
     displayProducts(products);
 });
 
+// Inisialisasi saat load
+fetchCategories();
 fetchProducts();
 updateCart();
