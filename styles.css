@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-    --primary-color: #212121; /*heading*/
-    --secondary-color: #ffffff; /*button text*/
+    --primary-color: #212121; /* heading */
+    --secondary-color: #ffffff; /* button text */
     --background-color: #ffffff;
     --text-color: #828282;
     --accent-color: #73ae37;
@@ -32,6 +32,29 @@ h1 {
     font-size: 2.5rem;
 }
 
+/* Header Section */
+.header-section {
+    background-color: #73ae37;
+    color: white;
+    text-align: center;
+    padding: 2em;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    letter-spacing: 1px; 
+}
+
+.header-section p {
+    font-size: 1.2rem;
+    margin-bottom: 0;
+    color: white;
+}
+
 /* Select Boxes */
 select {
     padding: 0.5rem;
@@ -42,6 +65,12 @@ select {
     background-color: var(--background-color);
 }
 
+label {
+    margin-right: 10px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
 /* Product Section */
 #products {
     display: flex;
@@ -49,6 +78,7 @@ select {
     justify-content: center;
     margin-top: 20px;
 }
+
 
 /* Product Card Styles */
 .product {
@@ -149,9 +179,36 @@ select {
     background-color: var(--accent-color-hover);
 }
 
-label {
-    margin-right: 10px;
-    font-weight: 500;
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: var(--accent-color-hover);
+}
+
+#pageInfo {
+    font-size: 1.2rem;
     color: var(--primary-color);
 }
 
@@ -168,5 +225,13 @@ label {
 
     #cart {
         width: 100%;
+    }
+
+    .pagination {
+        flex-direction: column;
+    }
+
+    .pagination button {
+        margin: 5px 0;
     }
 }
